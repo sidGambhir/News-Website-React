@@ -1,0 +1,46 @@
+.news-container {
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  .news-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    height: 150px;
+    border-bottom: 1px solid #a01515;
+    width: 900px;
+  }
+  
+  .article {
+    display: flex;
+    align-items: center;
+    padding-right: 24px;
+  
+    min-width: 300px;
+  }
+  
+  .article h1 {
+    font-size: 16px;
+    width: 150px;
+  }
+  
+  .article img {
+    height: 130px;
+    width: 130px;
+    margin-right: 10px;
+  }
+  .title-name{
+      font-size: 100px;
+  }
+  .modal-image{
+    width: 100%;
+    height: auto;
+  }
+
+  .modal-button{
+    float: right;
+  }
+  
