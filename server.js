@@ -36,8 +36,8 @@ function upsert(array, item) {
     res.sendFile(path.join(__dirname, '/public/index.html'))
   );
   
-  app.listen(process.env.PORT || 5000, () => {
+  app.listen(process.env.PORT || 4000, () => {
     console.log(
-      `Server is ready at http://localhost:${process.env.PORT || 5000}`
+      `Server is ready at http://localhost:${process.env.PORT || 4000}`
     );
   });

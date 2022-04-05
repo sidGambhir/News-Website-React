@@ -1,4 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
+import fetch from "node-fetch";
 import "./Article.css";
 import { useNavigate } from 'react-router';
 // import Container from 'react-bootstrap/Container';
@@ -9,14 +11,78 @@ import {Modal, Button, Container} from "react-bootstrap";
 
 const Article = ({title, desc, url, img}) => {
     
+
+    // let finalText = ""
+    // let summary = ""
+    const [finalText, setFinalText] = useState("loading")
+    const [summary, setSummary] = useState("loading")
     const [open, setOpen] = useState(false);
+    const [setTextURL] = useState("https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url=");
+    var textURL = "https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url="
     
-    function handleModalOpen(){
+    function handleModalOpen(e){
         setOpen(true);
+       // setTextURL("https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url=" + e.target.value);
+        textURL = "https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url=" + e.target.value;
+        // console.log(typeof(e.target.value));
+        // console.log(textURL);
+
+        axios.get(textURL).then(res => {
+            
+            // console.log(res.data.objects[0].text)
+            // finalText = res.data.objects[0].text
+            setFinalText(res.data.objects[0].text)
+            
+        }).catch(error => {
+            console.log(error);
+        })
+
+        async function query(data) {
+            const response = await fetch(
+                "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
+                {
+                    headers: { Authorization: "Bearer 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" },
+                    method: "POST",
+                    body: JSON.stringify(data),
+                }
+            );
+            const result = await response.json();
+            return result;
+        }
+        
+        query({"inputs": finalText }).then((response) => {
+            // summary = response[0].summary_text
+            setSummary(response[0].summary_text)
+            // console.log(JSON.stringify(response));
+        });
+
+        
+       
+        
     }
+
+    // console.log(finalText)
+    // const handleModalOpen = e => {
+
+    // }
+
     function handleModalClose(){
         setOpen(false);
     }
+
+    // useEffect(() => {
+    //     // axios.get("https://gnews.io/api/v4/top-headlines?&lang=en&token=ac11ba9d3a81aa130dfa1e1f97c8a6b0")
+    //     axios.get(textURL)
+    //     .then(res => {
+    //     //   setNews(res.data.articles);
+    //       console.log(res);
+          
+    
+    //     }).catch(error => {
+    //       console.log(error);
+    //     })
+    //   }, [textURL]);
+   
     return (
         <Container className="p-3">
         
@@ -34,14 +100,14 @@ const Article = ({title, desc, url, img}) => {
                     
                     <a className = "link" href={url} target="_blank" rel="noreferrer noopener">Read more</a>
                     
-                    <Button className = "modal-button" onClick={handleModalOpen}>Summary</Button>
+                    <Button value = {url} className = "modal-button" onClick={handleModalOpen}>Summary</Button>   
                     <Modal show = {open}>
                         <Modal.Header>
                             <h4><strong>{title}</strong></h4>
                         </Modal.Header>
                         <Modal.Body>
                             <img className="modal-image" src = {img} alt = {title}></img>
-                            <p>{desc}</p>
+                            <p>{summary}</p>
                             
                         </Modal.Body>
                         <Modal.Footer>

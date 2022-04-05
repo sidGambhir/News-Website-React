@@ -1,7 +1,6 @@
 {
   "name": "react-news",
-  
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:4000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,6 +26,7 @@
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "translate-api": "^0.3.18",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

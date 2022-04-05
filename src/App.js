@@ -60,9 +60,10 @@ function App() {
   const [news, setNews] = useState([]);
   const [search, setSearch] = useState("");
   const apiKey = "f44ceb56f02d4e2b90c92523129f5aa4";
-  const [country, setCountry] = useState("in");
+  const [country, setCountry] = useState("us");
   const [topic, setTopic] = useState("general");
   const [url, setUrl] = useState(`https://newsapi.org/v2/top-headlines?country=${country}&pageSize=100&apiKey=${apiKey}`);
+  
 
   
 
