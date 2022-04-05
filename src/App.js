@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+
 import 'bootstrap/dist/css/bootstrap.css'
 import {Navbar} from 'react-bootstrap';
 
@@ -107,19 +107,15 @@ function App() {
     
          <div className="news-app">
         
-      {/* <nav>
-        <button value= "business" onClick = {topicChange}>business</button>
-        <button value= "sports" onClick = {topicChange}>sports</button>
-      </nav> */}
+      
           <div>
             {loginData ? (
               <div>
-                
-                <Navbar class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">news-app</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+               
+
+
+                <Navbar class="navbar navbar-dark bg-primary sticky-top">
+  
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -132,7 +128,7 @@ function App() {
       
     </ul>
     <Select className = "select-drop-down" placeholder='Select category' onChange={topicChange} variant='filled' size='lg'> 
-                    {/* <option value=''>Top Headlines</option> */}
+                    
                     <option value='general'>General</option>
                     <option value='business'>Business</option>
                     <option value='science'>Science</option>
@@ -141,6 +137,11 @@ function App() {
                     <option value='technology'>Technology</option>
 
     </Select>
+    <select defaultValue="in" onChange={countryChange}>
+                    <option value = "us">us</option>
+                    <option value = "in">in</option>
+                    <option value = "gb">gb</option>
+                  </select>
     <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={handleChange}/>
    
@@ -158,18 +159,34 @@ function App() {
   </div>
 </Navbar>
 
-          
-                {/* <h3>Welcome, {loginData.name}!</h3>
-                <button onClick={handleLogout}>Logout</button> */}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-                        <div className="news-search">
-                    {/* <h1 className="news-search-text">Search</h1>
-                    <form>
-                      <input type = "text" placeholder="search" className="news-input" onChange={handleChange}/>
-                    </form> */}
-                  </div>
-                  <Select className = "select-drop-down" placeholder='Select category' onChange={topicChange} variant='filled' size='lg'> 
-                    {/* <option value=''>Top Headlines</option> */}
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      
+      <Select className = "select-drop-down" placeholder='Select category' onChange={topicChange} variant='filled' size='lg'> 
+                    
                     <option value='general'>General</option>
                     <option value='business'>Business</option>
                     <option value='science'>Science</option>
@@ -177,12 +194,38 @@ function App() {
                     <option value='sports'>Sports</option>
                     <option value='technology'>Technology</option>
 
-                  </Select>
-                  <select defaultValue="in" onChange={countryChange}>
-                    <option value = "us">us</option>
-                    <option value = "in">in</option>
-                    <option value = "gb">gb</option>
-                  </select>
+    </Select>
+      
+      
+      
+    </ul>
+    {/* <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> */}
+    <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={handleChange}/>
+   
+  </form>
+
+
+    <span class="navbar-text badge badge-success">
+    <h6>{loginData.name}</h6>
+    </span>
+    <div>
+      
+      <img className = "profile-pic" src = {loginData.picture}></img>
+    </div>
+    <button type="button" class="btn btn-dark" onClick={handleLogout}>Logout</button>
+  </div>
+</nav>
+
+          
+                        <div className="news-search">
+                   
+                  </div>
+                  
+                  
                   {filteredNews.map(article => {
                     return (
                       <Article 
@@ -198,13 +241,13 @@ function App() {
               </div>
             ) :
               (
-                <GoogleLogin
+                  <GoogleLogin
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                   buttonText="Log in with Google"
                   onSuccess={handleLogin}
                   onFailure={handleFailure}
                   cookiePolicy={'single_host_origin'}
-            ></GoogleLogin>
+              ></GoogleLogin>
               )
               }
           </div>    
