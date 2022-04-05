@@ -64,7 +64,6 @@ function App() {
   const [topic, setTopic] = useState("general");
   const [url, setUrl] = useState(`https://newsapi.org/v2/top-headlines?country=${country}&pageSize=100&apiKey=${apiKey}`);
 
-  
 
   const countryChange = e => {
     
