@@ -9,9 +9,10 @@ import {Modal, Button, Container} from "react-bootstrap";
 // import Button from 'react-bootstrap/Button';
 
 
+
 const Article = ({title, desc, url, img}) => {
     
-
+    
     // let finalText = ""
     // let summary = ""
     const [finalText, setFinalText] = useState("loading")
@@ -57,6 +58,20 @@ const Article = ({title, desc, url, img}) => {
         });
 
         
+     
+             let data = {
+                 q : summary,
+                 source: "en",
+                 target: "hi"
+             }
+             axios.post(`https://libretranslate.de/translate`, data)
+             .then((response) => {
+                 console.log(response.data.translatedText)
+                //  setResultText(response.data.translatedText)
+             });
+         
+
+
        
         
     }

@@ -26,6 +26,7 @@
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "translate": "^1.4.1",
     "translate-api": "^0.3.18",
     "web-vitals": "^2.1.4"
   },
