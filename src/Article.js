@@ -7,9 +7,7 @@ import { useNavigate } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.css'
 import {Modal, Button, Container} from "react-bootstrap";
 // import Button from 'react-bootstrap/Button';
-const NLPCloudClient = require('nlpcloud');
 
-const client = new NLPCloudClient('bart-large-cnn','4eC39HqLyjWDarjtT1zdp7dc')
 
 var flag = 0
 
