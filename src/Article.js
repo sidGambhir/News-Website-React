@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.css'
 import {Modal, Button, Container} from "react-bootstrap";
 // import Button from 'react-bootstrap/Button';
+const NLPCloudClient = require('nlpcloud');
+
+const client = new NLPCloudClient('bart-large-cnn','4eC39HqLyjWDarjtT1zdp7dc')
 
 var flag = 0
 
@@ -22,7 +25,9 @@ const Article = ({title, desc, url, img}) => {
     const [open, setOpen] = useState(false);
     // const [setTextURL] = useState("https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url=");
     const [textURL, setTextURL] = useState("https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url=")
+    const [siteName, setSiteName] = useState("")
     const [transSum, setTransSum] = useState("");
+    const [categories, setCategories] = useState([]);
     // var textURL = "https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url="
     
     function handleModalOpen(e){
@@ -30,53 +35,75 @@ const Article = ({title, desc, url, img}) => {
        
         // textURL = "https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url=" + e.target.value;
         setTextURL("https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url=" + e.target.value)
+        // setTextURL()
+       // textURL = "https://extractorapi.com/api/v1/extractor/?apikey=d7e43671089ee93294d575e055abd14494d21d93&url=" + e.target.value
+
         // console.log(typeof(e.target.value));
         // console.log(textURL);
-
-        axios.get(textURL).then(res => {
+        console.log(textURL)
+        if(textURL != "https://api.diffbot.com/v3/article?token=a6f2f81502e721c6eab7efb894955ff2&url="){
+            axios.get(textURL).then(res => {
             
-            // console.log(res.data.objects[0].text)
-            // finalText = res.data.objects[0].text
-            setFinalText(res.data.objects[0].text)
-            
-        }).catch(error => {
-            console.log(error);
-        })
-
-        async function query(data) {
-            const response = await fetch(
-                "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
-                {
-                    headers: { Authorization: "Bearer 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" },
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    
+                // console.log(res.data.objects[0].text)
+                // finalText = res.data.objects[0].text
+                setFinalText(res.data.objects[0].text)
+                setCategories(res.data.objects[0].categories)
+                console.log(res.data.objects[0].categories[0].name)
+                document.getElementById("categories-list").innerHTML = "Categories: ";
+                for(var i = 0; i < res.data.objects[0].categories.length; i++){
+                    document.getElementById("categories-list").innerHTML += res.data.objects[0].categories[i].name;
+                    if(i != res.data.objects[0].categories.length - 1){
+                        document.getElementById("categories-list").innerHTML += ", ";
+                    }
                 }
-            );
-            const result = await response.json();
-            return result;
+                // categories.forEach((item) => {
+                //     document.getElementById("categories-list").innerHTML += item;
+                // })
+                setSiteName(res.data.objects[0].siteName)
+                
+                
+                
+            }).catch(error => {
+                console.log(error);
+            })
+    
+            async function query(data) {
+                const response = await fetch(
+                    "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
+                    {
+                        headers: { Authorization: "Bearer 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" },
+                        method: "POST",
+                        body: JSON.stringify(data),
+                        
+                    }
+                );
+                const result = await response.json();
+                return result;
+            }
+            
+            query({"inputs": finalText }).then((response) => {
+                // summary = response[0].summary_text
+                setSummary(response[0].summary_text)
+                
+                // console.log(JSON.stringify(response));
+            });
+    
+            
+         
+                 let data = {
+                     q : summary,
+                     source: "en",
+                     target: "hi"
+                 }
+                 axios.post(`https://libretranslate.de/translate`, data)
+                 .then((response) => {
+                    setTransSum(response.data.translatedText)
+                 });
         }
         
-        query({"inputs": finalText }).then((response) => {
-            // summary = response[0].summary_text
-            setSummary(response[0].summary_text)
-            // console.log(JSON.stringify(response));
-        });
-
-        
-     
-             let data = {
-                 q : summary,
-                 source: "en",
-                 target: "hi"
-             }
-             axios.post(`https://libretranslate.de/translate`, data)
-             .then((response) => {
-                setTransSum(response.data.translatedText)
-             });
          
 
-
+            
        
         
     }
@@ -172,12 +199,21 @@ const Article = ({title, desc, url, img}) => {
                     
                     <Button value = {url} className = "modal-button" onClick={handleModalOpen}>Summary</Button>   
                     <Modal show = {open}>
-                        <Modal.Header>
-                            <h4><strong>{title}</strong></h4>
+                        <Modal.Header id = "header-modal">
+                            <h4 id = "modal-header"><strong>{title}</strong></h4>
+                            
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Header id = "addons">
+                        <i>Published by: {siteName}</i>
+                        <i id = "categories-list"></i>
+                        
+                        </Modal.Header>
+                        <Modal.Body id = "modal-body">
                             <img className="modal-image" src = {img} alt = {title}></img>
-                            <p id = "summary-text">{summary}</p>
+                            <div >
+                                <p id = "summary-id">Article Summary</p>
+                                <p id = "summary-text">{summary}</p>
+                            </div>
                             
                         </Modal.Body>
                         <Modal.Footer>

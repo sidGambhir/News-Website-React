@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre&family=Merriweather:wght@300;400&family=Playfair+Display&family=Source+Sans+Pro:wght@200&display=swap');
 .news-container {
     display: flex;
     justify-content: center;
@@ -62,5 +63,39 @@
 
   .link{
     font-size: large;
+  }
+  #modal-header{
+    font-family: 'Playfair Display', serif;
+    color: beige;
+    text-align: center;
+    text-emphasis-color: red;
+
+  }
+  #header-modal{
+    
+    
+    color: white;
+    
+  }
+  #modal-body{
+   
+    
+    /* font-weight: 400; */
+  }
+  #summary-text{
+    font-weight: 400;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: justify;
+  
+  }
+  #summary-id{
+    font-weight: 500;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+  
+  }
+  #addons{
+
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
