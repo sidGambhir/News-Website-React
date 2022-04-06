@@ -119,7 +119,7 @@ const Article = ({title, desc, url, img}) => {
         }else{
 
             document.getElementById("summary-text").innerHTML = summary;
-            document.getElementById("translate-button").innerHTML = "To Hindi"
+            document.getElementById("translate-button").innerHTML = "हिंदी में"
             flag = 0
             
         }
@@ -188,7 +188,7 @@ const Article = ({title, desc, url, img}) => {
             <div className="news-col">
                 
                 <div className="article">
-                <img src = {img} alt = {title}></img>
+                <img src = {img} alt = "Picture Unavailable"></img>
                     <h1 className="title-name">{title}</h1>
                     {/* <img src = {image} alt = {title}></img> */}
                 </div>
@@ -220,7 +220,7 @@ const Article = ({title, desc, url, img}) => {
                             <Button  variant="secondary" onClick = {handleModalClose}>
                                 Close
                             </Button>
-                            <Button id = "translate-button" onClick = {translate}>To Hindi</Button>
+                            <Button id = "translate-button" onClick = {translate}>हिंदी में</Button>
                         </Modal.Footer>
                     </Modal>
                     

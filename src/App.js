@@ -114,78 +114,17 @@ function App() {
                
 
 
-                <Navbar class="navbar navbar-dark bg-primary sticky-top">
-  
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-     
-      
-    </ul>
-    <Select className = "select-drop-down" placeholder='Select category' onChange={topicChange} variant='filled' size='lg'> 
-                    
-                    <option value='general'>General</option>
-                    <option value='business'>Business</option>
-                    <option value='science'>Science</option>
-                    <option value='entertainment'>Entertainment</option>
-                    <option value='sports'>Sports</option>
-                    <option value='technology'>Technology</option>
-
-    </Select>
-    <select defaultValue="in" onChange={countryChange}>
-                    <option value = "us">us</option>
-                    <option value = "in">in</option>
-                    <option value = "gb">gb</option>
-                  </select>
-    <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={handleChange}/>
-   
-  </form>
-
-    <span class="navbar-text badge badge-success">
-    <h6>{loginData.name}</h6>
-    </span>
-    <div>
-      
-      <img className = "profile-pic" src = {loginData.picture}></img>
-    </div>
-    <button type="button" class="btn btn-dark" onClick={handleLogout}>Logout</button>
-    
-  </div>
-</Navbar>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+               <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+  <a class="navbar-brand" id="header-id" href="#">News</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
+
       
-      <Select className = "select-drop-down" placeholder='Select category' onChange={topicChange} variant='filled' size='lg'> 
+      <Select id = "category-id" className = "select-drop-down" placeholder='Select category' onChange={topicChange} variant='filled' size='lg'> 
                     
                     <option value='general'>General</option>
                     <option value='business'>Business</option>
@@ -203,22 +142,29 @@ function App() {
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form> */}
-    <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={handleChange}/>
+    <form class="form-inline my-2 my-lg-0" id="search-form">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search on Page" aria-label="Search" onChange={handleChange}/>
    
   </form>
 
 
     <span class="navbar-text badge badge-success">
-    <h6>{loginData.name}</h6>
+    <div id="user-name">
+      <h6 className="navbar-brand">{loginData.name}</h6>
+    </div>
+    
     </span>
     <div>
       
-      <img className = "profile-pic" src = {loginData.picture}></img>
+      <img className = "profile-pic" id="pfp" src = {loginData.picture}></img>
     </div>
-    <button type="button" class="btn btn-dark" onClick={handleLogout}>Logout</button>
+    <button type="button" class="btn btn-light" id="logout-button" onClick={handleLogout}>Logout</button>
   </div>
 </nav>
+
+<div id="latest-news" > 
+<h1>Latest news</h1>
+</div>
 
           
                         <div className="news-search">
